@@ -6,9 +6,17 @@ export const bookController = {
     const allBooks = await Book.find();
     return res.json(allBooks);
   },
+
+  getSingleData: async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const book = await Book.findById(id);
+    return res.json(book);
+  },
+
   createData: async (req: Request, res: Response) => {
     const { name, description, isbn, author } = req.body;
-    
+
     // const file = req.file; //file yang akan diterima dari upload.single di book router dan akan di save di public folder
 
     const createBook = new Book({
