@@ -4,9 +4,9 @@ export interface Ibook {
   description: string;
   isbn: string;
   author: string;
-  file: null | FileList |string;
+  file: null | FileList | string;
+  isAvailable?: boolean;
 }
-
 
 export interface IUser {
   id: string;

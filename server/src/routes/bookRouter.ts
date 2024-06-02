@@ -16,5 +16,6 @@ export const bookRouter = express.Router();
 
 bookRouter.get("/", bookController.getData);
 bookRouter.get("/:id", bookController.getSingleData);
+bookRouter.patch("/:id", bookController.updateData);
 
 bookRouter.post("/", upload.single("file"), bookController.createData); //supaya setelah klik submit maka input langsung kosong dan data di save di mongodb

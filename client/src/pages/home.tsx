@@ -3,12 +3,22 @@ import { useQuery } from "react-query";
 import { bookServices } from "@/services/bookService";
 import { Header } from "@/components/sharedui/header";
 import { BookCard } from "@/components/sharedui/bookCard";
+import { useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Home() {
+  const [searchParams] = useSearchParams(); //query url
+
   const query = useQuery({
     queryKey: ["books"],
-    queryFn: bookServices.getData,
+    queryFn: () => bookServices.getData(searchParams.get("search")),
   });
+
+  useEffect(() => {
+    query.refetch();
+  }, [searchParams]);
+
+  
   return (
     <main className="space-y-12">
       <Header />

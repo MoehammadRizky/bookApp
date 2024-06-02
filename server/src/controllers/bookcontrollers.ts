@@ -4,11 +4,18 @@ import { Request, Response } from "express";
 export const bookController = {
   getData: async (req: Request, res: Response) => {
     const { search } = req.query; //ngambil query
-    console.log(search);
 
-    const allBooks = await Book.find({
-      name: { $regex: search, $options: "i" },
-    });
+    const CLAUSES = search
+      ? {
+          $or: [
+            { name: { $regex: search, $options: "i" } },
+            { description: { $regex: search, $options: "i" } },
+            { author: { $regex: search, $options: "i" } },
+          ], //regex = regular expression
+        }
+      : {};
+
+    const allBooks = await Book.find(CLAUSES);
     return res.json(allBooks);
   },
 
@@ -30,10 +37,18 @@ export const bookController = {
       isbn,
       author,
       file: req.file?.originalname,
+      isAvailable: true,
     });
 
     const saved = await createBook.save();
 
     return res.json({ message: "Good!", data: saved });
+  },
+  updateData: async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    //
+    const updateBook = await Book.findByIdAndUpdate(id, { isAvailable: false });
+    return res.json(updateBook);
   },
 };
