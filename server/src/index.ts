@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { bookRouter } from "./routes/bookRouter";
+import { authRouter } from "./routes/authRouter";
 
 dotenv.config();
 
@@ -17,4 +18,5 @@ app.use(express.urlencoded({ extended: true })); //buat baca formData
 app.use(express.static("public")); //buat serving static file sehingga bisa diakses di localhost:8000
 app.use(cors({ origin: ["http://127.0.0.1:5173"] }));
 app.use("/books", bookRouter);
+app.use("/user", authRouter)
 app.listen(8000);
