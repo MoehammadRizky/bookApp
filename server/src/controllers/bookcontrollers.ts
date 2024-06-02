@@ -3,7 +3,12 @@ import { Request, Response } from "express";
 
 export const bookController = {
   getData: async (req: Request, res: Response) => {
-    const allBooks = await Book.find();
+    const { search } = req.query; //ngambil query
+    console.log(search);
+
+    const allBooks = await Book.find({
+      name: { $regex: search, $options: "i" },
+    });
     return res.json(allBooks);
   },
 
@@ -17,7 +22,7 @@ export const bookController = {
   createData: async (req: Request, res: Response) => {
     const { name, description, isbn, author } = req.body;
 
-    // const file = req.file; //file yang akan diterima dari upload.single di book router dan akan di save di public folder
+    //  const file = req.file; //file yang akan diterima dari upload.single di book router dan akan di save di public folder
 
     const createBook = new Book({
       name,

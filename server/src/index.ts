@@ -18,5 +18,5 @@ app.use(express.urlencoded({ extended: true })); //buat baca formData
 app.use(express.static("public")); //buat serving static file sehingga bisa diakses di localhost:8000
 app.use(cors({ origin: ["http://127.0.0.1:5173"] }));
 app.use("/books", bookRouter);
-app.use("/user", authRouter)
+app.use("/auth", authRouter)
 app.listen(8000);

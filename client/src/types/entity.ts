@@ -6,3 +6,10 @@ export interface Ibook {
   author: string;
   file: null | FileList |string;
 }
+
+
+export interface IUser {
+  id: string;
+  name: string;
+  email: string;
+}

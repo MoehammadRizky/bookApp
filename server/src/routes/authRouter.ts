@@ -4,4 +4,4 @@ import { authController } from "../controllers/authController";
 export const authRouter = express.Router();
 
 authRouter.post("/register", authController.createUser);
-authRouter.post("/login", () => {});
+authRouter.post("/login", authController.loginUser);
